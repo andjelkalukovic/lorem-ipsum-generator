@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-  body {
+body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -18,8 +18,12 @@ code {
     monospace;
 }
 
-h1, article p {
+h1, .regular-paragraph {
   color: rgb(97, 97, 97);
+}
+
+.alert-paragraph {
+  color: rgb(161, 161, 161);
 }
 
 label {

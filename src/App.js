@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import data from './data'
 import Button from 'react-bootstrap/Button'
 
 function App() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState([]);
+  const [alert, setAlert] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +17,13 @@ function App() {
     setCount(0);
     setText([])
   }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setAlert(false)
+    }, 3000)
+    return () => clearTimeout(timeout)
+  }, [alert])
 
   return (
     <section className='container text-center py-4'>
@@ -36,11 +44,19 @@ function App() {
 
       <article className='pt-3'>
         {text.map((paragraph, index) => {
-          return <p key={index}>{paragraph}</p>
+          return <p key={index}
+            onClick={() => {
+              setAlert(true)
+              navigator.clipboard.writeText(text)
+            }}
+            className={alert ? 'alert-paragraph' : 'regular-paragraph'}
+          >{paragraph}</p>
         })}
 
-        {count > 0 ? <Button onClick={refreshLorem} variant="info"
-          className="my-3">Refresh</Button> : null}
+        {alert && <h2>Copied to clipboard</h2>}
+
+        {count > 0 && <Button onClick={refreshLorem} variant="info"
+          className="my-3">Refresh</Button>}
       </article>
     </section>
   );
